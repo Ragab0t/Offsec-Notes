@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# NSE Scripts to skip  
+BLACKLIST='dns-cache-snoop or broadcast or http-vuln-cve2013-7091 or dns-brute or http-vuln-cve2011-3192 or http-cross-domain-policy or http-slowloris* or http-google-malware or targets-* or *icloud*'
+
+#Remove Files from previous runs 
+rm $1-NMAP-*.html
+rm $1-NMAP-*.gnmap
+rm $1-NMAP-*.nmap
+
+#Scan 1: TCP Service, OS & Vuln Scan - top 1000 ports 
+nmap -sS -sV -O -T4 -r $1 --script "(default or auth or vuln or exploit or discovery) and not ($BLACKLIST)" --script-args unsafe=1 -oA $1-NMAP-TCP && xsltproc $1-NMAP-TCP.xml $1-NMAP-TCP.html > $1-NMAP-TCP.html && rm $1-NMAP-TCP.xml && /usr/bin/firefox $1-NMAP-TCP.html
+
+#Scan 2: UDP Service & Vuln Scan - top 100 ports 
+nmap -sV -sU $1 -top-ports 100 -r --script "(default or auth or vuln or exploit or discovery) and not ($BLACKLIST)" --script-args unsafe=1 -oA $1-NMAP-UDP && xsltproc $1-NMAP-UDP.xml $1-NMAP-UDP.html > $1-NMAP-UDP.html && rm $1-NMAP-UDP.xml && /usr/bin/firefox $1-NMAP-UDP.html
+
+#Scan 3: TCP SYN Scan for ports 1-65535 
+nmap -sS -p - -T4 $1 -oG $1-NMAP-ALL-TCP.gnmap -r -dd
+
+wait
+
+#Checks for Differences between number of ports open Scan 1 vs Scan 3 
+TCP_COUNT=`grep -o open $1-NMAP-TCP.gnmap | wc -l`
+TCP_ALL_COUNT=`grep -o open $1-NMAP-ALL-TCP.gnmap | wc -l` 
+
+#IF no differences ALL GOOD And Exit, otherwise open firefox and display NMAP-ALL-TCP.gnmap Scan 
+
+if [ "$TCP_COUNT" = "$TCP_ALL_COUNT" ]; then
+echo "ALL GOOD!" 
+else
+echo "REVIEW TCP ALL!"  && /usr/bin/firefox  $1-NMAP-ALL-TCP.gnmap
+fi
+
+#Clean up 
+rm *.nmap
+rm $1-NMAP-TCP.gnmap
+rm $1-NMAP-UDP.gnmap
+
+#exit
+echo BYE BYE 
+
+
