@@ -1,3 +1,3 @@
 # Offsec
 
-Offsec PWK Notes and Files 
+Offsec PWK notes and frecuently used files 
