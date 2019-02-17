@@ -3,7 +3,7 @@
 Offsec PWK notes and frecuently used files.
 
 <ol>
-  <li><a href="#Scanning"><h2>Scanning and Enumeration</h2></a></li>
+  <li><h3><a href="#Scanning">Scanning and Enumeration</h3></a></li>
   <li><a href="#Exploitation">Exploitation</a></li>
   <li><a href="#ExploitDevelopment">Exploit Development</a></li>
   <li><a href="#PasswordAttacks">Password Attacks</a></li>
