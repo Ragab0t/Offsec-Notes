@@ -300,6 +300,7 @@ PowerShell with nc.exe or another rev shell .exe
     perl solaris-exploit-suggester.pl
 
 Local 
+
     ./linux-exploit-suggester.sh --uname 2.6.18-274.3.1.el5
 
 <h4>Linux Commands</h4>
