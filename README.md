@@ -26,37 +26,37 @@ Offsec PWK notes and frecuently used files.
 
 <h4> NMAP</h4>
 
-nmap++ 1.1.1.1
+    nmap++ 1.1.1.1
 
 <h4> SMB</h4>
 
-nbtscan -r 1.1.1.1
+    nbtscan -r 1.1.1.1
 
-enum4linux -USGPoi 1.1.1.1 >> SMB.txt
+    enum4linux -USGPoi 1.1.1.1 >> SMB.txt
 
-smbclient -L 1.1.1.1
+    smbclient -L 1.1.1.1
 
-showmount -e 1.1.1.1
+    showmount -e 1.1.1.1
 
 <h4> SMTP </h4>
 
-nmap -p 25 --script smtp-enum-users.nse,smtp-commands.nse 1.1.1.1
+    nmap -p 25 --script smtp-enum-users.nse,smtp-commands.nse 1.1.1.1
 
 <h4> SNMP</h4>
 
-snmpcheck -t 1.1.1.1 >> ENUM-SNMP.txt
+  snmpcheck -t 1.1.1.1 >> ENUM-SNMP.txt
 
-snmpwalk -c public 1.1.1.1  -v 2c
+  snmpwalk -c public 1.1.1.1  -v 2c
 
-onesixtyone -c public.txt -o snmp-onesixtyone.txt -dd 1.1.1.1 
+  onesixtyone -c public.txt -o snmp-onesixtyone.txt -dd 1.1.1.1 
 
 <h4> HTTP</h4>
 
-nikto -o nikto.html -Display V -nolookup -host 1.1.1.1  && firefox nikto.html
+  nikto -o nikto.html -Display V -nolookup -host 1.1.1.1  && firefox nikto.html
 
-Dirbuster: Change to 50 req/s, no recursion, export simple list. 
+  dirb http://1.1.1.1 /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -l -o dirb.txt
 
-dirb http://1.1.1.1 /usr/share/dirbuster/wordlists/directory-list-lowercase-2.3-medium.txt -l -o dirb.txt
+  Dirbuster: Change to 50 req/s, no recursion, export simple list. 
 
 <h4> SSH </h4>
 
