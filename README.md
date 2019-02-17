@@ -370,7 +370,9 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 <h4>External Links</h4>
 
 <a href="https://github.com/Ragab0t/priv-escalation/blob/master/MS_privesc_and_exploits_table.csv">Windows Privilege Escalation Matrix</a>
+
 <a href="https://github.com/Ragab0t/windows-kernel-exploits">Pre-Compiled Windows Exploits</a>
+
 <a href="https://gtfobins.github.io/#">Escaping Restricted Shells</a>
 
 
