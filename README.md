@@ -17,9 +17,10 @@ Offsec PWK notes and frecuently used files.
 </ol></h3>
 
 <h3>
-Target IP: 1.1.1.1
-<br><br>
-Local IP: 10.10.10.10 
+
+        Target IP: 1.1.1.1
+<br>
+        Local IP: 10.10.10.10
 </h3>
 
 <div id="Scanning"> <h3>1.Scanning and Enumeration</h3></div>
