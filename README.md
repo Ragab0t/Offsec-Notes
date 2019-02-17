@@ -16,11 +16,11 @@ Offsec PWK notes and frecuently used files.
   <li><a href="#LessonsLearned">Lessons Learned</a></li>
 </ol></h3>
 
-<h4>
+<h3>
 Target IP: 1.1.1.1
-<br>
+<br><br>
 Local IP: 10.10.10.10 
-</h4>
+</h3>
 
 <div id="Scanning"> <h3>1.Scanning and Enumeration</h3></div>
 
