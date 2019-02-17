@@ -2,8 +2,8 @@
 
 Offsec PWK notes and frecuently used files.
 
-<ol>
-  <li><h3><a href="#Scanning">Scanning and Enumeration</h3></a></li>
+<h3><ol>
+  <li><<a href="#Scanning">Scanning and Enumeration</a></li>
   <li><a href="#Exploitation">Exploitation</a></li>
   <li><a href="#ExploitDevelopment">Exploit Development</a></li>
   <li><a href="#PasswordAttacks">Password Attacks</a></li>
@@ -14,7 +14,7 @@ Offsec PWK notes and frecuently used files.
   <li><a href="#PortForwarding">Port Forwarding</a></li>
   <li><a href="#WebAttacks">Web Attacks</a></li>
   <li><a href="#LessonsLearned">Lessons Learned</a></li>
-</ol>
+</ol></h3>
 
 <br>
 Target IP: 1.1.1.1
