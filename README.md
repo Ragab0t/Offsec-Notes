@@ -559,7 +559,7 @@ Shellshock
 
 Vulnerable URL/Parameter: 
 
-    http://1.1.1.1/mvc/Product.aspx?Id=1
+    http://1.1.1.1/mvc/Product.aspx?id=1
 
 <h5>1. Enumerate if vulnerable</h5>
 
