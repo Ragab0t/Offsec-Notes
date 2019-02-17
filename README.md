@@ -514,7 +514,7 @@ The local machine connects to a remote host 1.1.1.1 and proxies its traffic thru
     ssh -D 8080 root@1.1.1.1
     proxychains nmap -p 22,80,222,10000 -sT -Pn 2.2.2.2
 
-<div id="Web Attacks"> <h3>10. Web Attacks</h3></div>
+<div id="WebAttacks"> <h3>10. Web Attacks</h3></div>
 
 
 <h4>ZAP</h4>
