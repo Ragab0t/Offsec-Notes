@@ -2,7 +2,7 @@
 
 Offsec PWK notes and frecuently used files.
 
-<h3><ol>
+<h4><ol>
   <li><a href="#Scanning">Scanning and Enumeration</a></li>
   <li><a href="#Exploitation">Exploitation</a></li>
   <li><a href="#ExploitDevelopment">Exploit Development</a></li>
@@ -14,15 +14,15 @@ Offsec PWK notes and frecuently used files.
   <li><a href="#PortForwarding">Port Forwarding</a></li>
   <li><a href="#WebAttacks">Web Attacks</a></li>
   <li><a href="#LessonsLearned">Lessons Learned</a></li>
-</ol></h3>
+</ol></h4>
 
-<h3>
+<h4>
 
         Local IP: 10.10.10.10
 
         Target IP: 1.1.1.1
 
-</h3>
+</h4>
 
 <div id="Scanning"> <h3>1.Scanning and Enumeration</h3></div>
 
@@ -345,7 +345,7 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
 
     wpc.exe --audit -a -o report
 
-    cd /ftphome 
+    cd /Offsec 
     python windows-exploit-suggester.py --database 2018-09-02-mssb.xls --systeminfo sys-info.txt
     python windows-exploit-suggester.py --database 2018-09-02-mssb.xls --ostext 'Windows Server 2008 R2'
 
