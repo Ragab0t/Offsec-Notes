@@ -123,10 +123,13 @@ Offsec PWK notes and frecuently used files.
 
 <h4>3. Update skeleton script to match new buffer size, pad with a different char (x42) 4 bytes to overwrite EIP. </h4>
 
+buffer = "A" * 2604 + "B" * 4 
+
+
 <h4>4. Locate space for shell code (i.e add more “C”s ~400 bytes) 
 </h4>
 
-    /usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
+buffer = "A" * 2604 + "B" * 4 + "C" * 400
 
 <h4>5. Locate bad characters: append to skeleton script right after x42s, Immunity: ESP Follow in Dump </h4>
 
