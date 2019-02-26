@@ -321,6 +321,8 @@ Local
     cat /etc/issue
     ifconfig -a
     netstat -ano 
+    netstat --tcp
+    netstat -s --tcp
     nmap -p - -sV localhost
     cat /etc/passwd
     cat /etc/hosts
@@ -447,6 +449,8 @@ Remote
     windump -i 2  -w capture -n -U -s 0 src not 10.10.10.10 and dst not 10.10.10.10
 
     tcpdump -w capture -n -U -s 0 src not 10.10.10.10 and dst not 10.10.10.10
+
+    p0f -i eth0 'src not 10.10.10.10 or dst not 10.10.10.10'
 
 Maintain Access 
 
