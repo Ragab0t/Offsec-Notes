@@ -321,6 +321,7 @@ Local
     cat /etc/issue
     ifconfig -a
     netstat -ano 
+    nmap -p - -sV localhost
     cat /etc/passwd
     cat /etc/hosts
     arp -a
@@ -363,7 +364,8 @@ C:\temp> powershell.exe -ExecutionPolicy Bypass -File .\jaws-enum.ps1
     type boot.ini 
     hostname
     ipconfig /all
-    netstat -ano 
+    netstat -ano
+    nmap.exe -p - -sV localhost 
     net users
     net localgroups 
     route print
